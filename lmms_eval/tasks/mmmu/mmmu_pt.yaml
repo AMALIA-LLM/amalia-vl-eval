@@ -1,0 +1,26 @@
+dataset_path: amalia-llm/MMMU-PT
+task: "mmmu_pt"
+tag:
+  - amalia_vl_eval_pt
+dataset_kwargs:
+  token: True
+test_split: validation
+output_type: generate_until
+doc_to_visual: !function utils_pt.mmmu_doc_to_visual
+doc_to_text: !function utils_pt.mmmu_doc_to_text
+doc_to_target: "answer"
+doc_to_messages: !function utils_pt.mmmu_doc_to_messages
+process_results: !function utils_pt.mmmu_process_results
+
+metric_list:
+  - metric: mmmu_acc
+    aggregation: !function utils_pt.mmmu_aggregate_results
+    higher_is_better: true
+
+lmms_eval_specific_kwargs:
+  default:
+    prompt_type: "format"
+    multiple_choice_prompt: "Responde diretamente com a letra da opção das escolhas disponíveis."
+    open_ended_prompt: "Responde à pergunta utilizando uma palavra ou frase."
+
+include: _default_template_yaml

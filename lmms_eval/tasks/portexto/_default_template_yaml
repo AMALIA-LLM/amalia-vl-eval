@@ -1,0 +1,30 @@
+dataset_path: amalia-llm/PorTEXTO
+dataset_kwargs:
+  token: True
+test_split: test
+output_type: generate_until
+doc_to_visual: !function utils.texto_doc_to_visual
+doc_to_text: !function utils.texto_doc_to_text
+doc_to_target: "answer"
+generation_kwargs:
+  max_new_tokens: 8192
+  temperature: 0
+  do_sample: False
+process_results: !function utils.texto_v2_process_results
+metric_list:
+  - metric: anls
+    aggregation: !function utils.texto_anls_aggregation
+    higher_is_better: true
+  - metric: bleu
+    aggregation: !function utils.texto_bleu_aggregation
+    higher_is_better: true
+lmms_eval_specific_kwargs:
+  default:
+    pre_prompt: ""
+    post_prompt: ""
+reasoning_tags:
+  - ["<think>", "</think>"]
+  - ["<reasoning>", "</reasoning>"]
+  - ["<|channel>thought", "<channel|>"]
+metadata:
+  - version: 0.0

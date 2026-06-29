@@ -1,0 +1,5 @@
+dataset_name: "handwritten_full_page"
+tag:
+  - portexto
+task: "portexto_handwritten_full_page_pt"
+include: _default_template_yaml

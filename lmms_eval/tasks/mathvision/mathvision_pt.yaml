@@ -1,0 +1,25 @@
+dataset_path: amalia-llm/MATH-Vision-PT
+dataset_kwargs:
+  token: True
+task: "mathvision_pt"
+tag:
+  - amalia_vl_eval_pt
+test_split: test
+output_type: generate_until
+doc_to_visual: !function utils_pt.mathvision_doc_to_visual
+doc_to_text: !function utils_pt.mathvision_doc_to_text
+doc_to_target: "answer"
+generation_kwargs:
+  max_new_tokens: 16384
+process_results: !function utils_pt.mathvision_process_results
+metric_list:
+  - metric: mathvision_standard_eval
+    aggregation: !function utils_pt.mathvision_aggregate_results_eval
+    higher_is_better: true
+
+lmms_eval_specific_kwargs:
+  default:
+    prompt_format: solution
+    mc_prompt: "Responde diretamente com a letra da opção das opções disponíveis."
+    short_answer_prompt: "Responde à pergunta diretamente com um número."
+    query_prompt: "Por favor, resolve o problema passo a passo e coloca a tua resposta dentro de um '\\boxed{}'."

@@ -1,0 +1,17 @@
+dataset_path: amalia-llm/RefCOCO-PT
+dataset_kwargs:
+  token: True
+tag:
+  - amalia_vl_eval_pt
+task: refcoco_bbox_rec_pt
+test_split: test
+include: _default_template_bbox_rec_yaml
+# Override the keys whose target functions diverge from upstream utils_rec
+# (byte-image decoding + pt prompt + multi-format bbox parsing). The unchanged
+# metric aggregations stay pointed at stock utils_rec via the included template.
+process_docs: !function utils_rec_pt.refcoco_bbox_rec_preprocess_dataset
+doc_to_visual: !function utils_rec_pt.refcoco_bbox_rec_doc_to_visual
+doc_to_text: !function utils_rec_pt.refcoco_bbox_rec_doc_to_text
+process_results: !function utils_rec_pt.refcoco_bbox_rec_process_result
+lmms_eval_specific_kwargs:
+  question: 'As coordenadas de uma "bounding box" são especificadas no formato [x superior esquerdo, y superior esquerdo, x inferior direito, y inferior direito]. Todos os valores são números de vírgula flutuante limitados entre 0 e 1. Por favor, fornece as coordenadas da "bounding box" que esta frase descreve: '

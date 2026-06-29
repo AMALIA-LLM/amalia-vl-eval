@@ -1,0 +1,10 @@
+task: "infovqa_val"
+tag:
+  - amalia_vl_eval
+test_split: validation
+output_type: generate_until
+metric_list:
+  - metric: anls
+    aggregation: mean
+    higher_is_better: true
+include: _default_template_infovqa_yaml

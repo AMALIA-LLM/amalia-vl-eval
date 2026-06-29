@@ -1,0 +1,16 @@
+dataset_path: amalia-llm/RefCOCO-PT
+dataset_kwargs:
+  token: True
+tag:
+  - amalia_vl_eval_pt
+task: refcoco_bbox_pt
+test_split: test
+include: _default_template_bbox_yaml
+# Override the keys whose target functions diverge from upstream utils
+# (byte-image decoding + pt region prompt). The unchanged process_results and
+# metric aggregations stay pointed at stock utils via the included template.
+doc_to_visual: !function utils_pt.refcoco_bbox_doc_to_visual
+doc_to_text: !function utils_pt.refcoco_doc_to_text
+lmms_eval_specific_kwargs:
+  default:
+    question: "Apresenta uma breve descrição desta região."

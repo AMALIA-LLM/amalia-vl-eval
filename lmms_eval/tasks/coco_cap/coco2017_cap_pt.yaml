@@ -1,0 +1,45 @@
+dataset_path: amalia-llm/COCO-Caption2017-PT
+dataset_kwargs:
+  token: True
+task: "coco2017_cap_pt"
+tag:
+  - amalia_vl_eval_pt
+test_split: validation
+output_type: generate_until
+doc_to_visual: !function utils_pt.coco_doc_to_visual
+doc_to_text: !function utils_pt.coco_doc_to_text
+doc_to_target: "answer"
+generation_kwargs:
+  max_new_tokens: 64
+  temperature: 0
+  top_p: 1.0
+  num_beams: 1
+  do_sample: false
+process_results: !function utils_pt.coco_process_result
+metric_list:
+  - metric: coco_Bleu_4
+    aggregation : !function utils_pt.coco_bleu4
+    higher_is_better : true
+  - metric: coco_Bleu_3
+    aggregation : !function utils_pt.coco_bleu3
+    higher_is_better : true
+  - metric: coco_Bleu_2
+    aggregation : !function utils_pt.coco_bleu2
+    higher_is_better : true
+  - metric: coco_Bleu_1
+    aggregation : !function utils_pt.coco_bleu1
+    higher_is_better : true
+  - metric: coco_METEOR
+    aggregation : !function utils_pt.coco_meteor
+    higher_is_better : true
+  - metric: coco_ROUGE_L
+    aggregation : !function utils_pt.coco_rougel
+    higher_is_better : true
+  - metric: coco_CIDEr
+    aggregation : !function utils_pt.coco_cider
+    higher_is_better : true
+lmms_eval_specific_kwargs:
+  default:
+    question: "Apresenta uma legenda de uma frase para a imagem fornecida."
+metadata:
+  - version: 0.0

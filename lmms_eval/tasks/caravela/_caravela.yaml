@@ -1,0 +1,18 @@
+# CARAVELA — group bundling the three leaf tasks.
+# All three leaves report the same metric (`caravela_score`, a per-sample
+# accuracy in [0,100]), so the group pools them into a single mean — reported on
+# the `caravela` group row, in addition to each leaf's own score.
+# weight_by_size: false → macro-average (each of the three subtasks counts
+# equally, regardless of how many samples it has).
+# Use `--tasks caravela` to run all three.
+group: caravela
+task:
+  - caravela_mcq
+  - caravela_vqa
+  - caravela_reasoning
+aggregate_metric_list:
+  - metric: caravela_score
+    aggregation: mean
+    weight_by_size: false
+metadata:
+  version: 1.0

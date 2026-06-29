@@ -1,0 +1,16 @@
+# CARAVELA — shared task config (LMMS-Eval)
+# Cultural Awareness and Recognition Assessment for Visual Entity Literacy and Analysis.
+# Native European Portuguese (pt-PT) benchmark hosted at amalia-llm/CARAVELA.
+#
+# NOTE: `include:` merges shallowly (dict.update, not deep), so any block a leaf
+# redefines fully replaces the one here. `dataset_kwargs` (which carries each
+# leaf's `data_files`) and `generation_kwargs` therefore live in the leaves, not
+# here — only genuinely shared, never-overridden keys belong in this template.
+dataset_path: amalia-llm/CARAVELA
+output_type: generate_until
+doc_to_visual: !function utils.caravela_doc_to_visual
+doc_to_target: "answer"
+reasoning_tags:
+  - ["<think>", "</think>"]
+metadata:
+  version: 1.0

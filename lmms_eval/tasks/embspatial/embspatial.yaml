@@ -1,0 +1,6 @@
+dataset_name: null
+test_split: test
+task: "embspatial"
+tag:
+  - amalia_vl_eval
+include: _default_template_yaml

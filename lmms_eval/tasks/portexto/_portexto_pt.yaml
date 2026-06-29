@@ -1,0 +1,15 @@
+group: portexto_pt
+task:
+  - portexto_handwritten_pt
+  - portexto_handwritten_full_page_pt
+  - portexto_in_the_wild_pt
+  - portexto_synthetic_pt
+aggregate_metric_list:
+  - metric: anls
+    aggregation: mean
+    weight_by_size: true
+  - metric: bleu
+    aggregation: mean
+    weight_by_size: true
+metadata:
+  version: 0.0

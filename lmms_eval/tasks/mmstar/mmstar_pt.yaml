@@ -1,0 +1,40 @@
+dataset_path: amalia-llm/MMStar-PT
+task: "mmstar_pt"
+tag:
+  - amalia_vl_eval_pt
+dataset_kwargs:
+  token: True
+test_split: validation
+output_type: generate_until
+doc_to_visual: !function utils_pt.mmstar_doc_to_visual
+doc_to_text: !function utils_pt.mmstar_doc_to_text
+doc_to_target: "answer"
+process_results: !function utils_pt.mmstar_process_results
+metric_list:
+  - metric: coarse perception
+    aggregation: !function utils_pt.mmstar_aggregate_results
+    higher_is_better: true
+  - metric: fine-grained perception
+    aggregation: !function utils_pt.mmstar_aggregate_results
+    higher_is_better: true
+  - metric: instance reasoning
+    aggregation: !function utils_pt.mmstar_aggregate_results
+    higher_is_better: true
+  - metric: logical reasoning
+    aggregation: !function utils_pt.mmstar_aggregate_results
+    higher_is_better: true
+  - metric: science & technology
+    aggregation: !function utils_pt.mmstar_aggregate_results
+    higher_is_better: true
+  - metric: math
+    aggregation: !function utils_pt.mmstar_aggregate_results
+    higher_is_better: true
+  - metric: average
+    aggregation: !function utils_pt.mmstar_aggregate_results
+    higher_is_better: true
+lmms_eval_specific_kwargs:
+  default:
+    pre_prompt: ""
+    post_prompt: "\nResponde diretamente com a letra da opção das opções disponíveis."
+metadata:
+  - version: 0.0

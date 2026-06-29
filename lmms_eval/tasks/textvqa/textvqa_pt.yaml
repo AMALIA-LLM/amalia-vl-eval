@@ -1,0 +1,32 @@
+dataset_path: amalia-llm/TextVQA-PT
+dataset_kwargs:
+  token: True
+task: textvqa_pt
+tag:
+  - amalia_vl_eval_pt
+test_split: validation
+output_type: generate_until
+doc_to_visual: !function utils_pt.textvqa_doc_to_visual
+doc_to_text: !function utils_pt.textvqa_doc_to_text
+doc_to_target: "answer"
+generation_kwargs:
+  until:
+    - "ASSISTANT:"
+process_results: !function utils_pt.textvqa_process_results
+lmms_eval_specific_kwargs:
+  default:
+    pre_prompt: ""
+    post_prompt: "\nQuando a informação fornecida for insuficiente, responde com 'Sem resposta'.\nResponde à pergunta utilizando uma palavra ou frase."
+    ocr: false
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+    ignore_case: true
+    ignore_punctuation: true
+  - metric: submission
+    aggregation: !function utils_pt.textvqa_aggregate_submissions
+    higher_is_better: true
+
+metadata:
+  - version: 0.0
